@@ -14,9 +14,9 @@
 <script type="text/javascript">
 window.onload = function(){
   var oBox = document.getElementById("box");
-  oBox.addEventListener('click', function(ev){
-    var ev = ev || window.event;
-    var target = ev.target || ev.srcElement;
+  oBox.addEventListener('click', function(e){
+    var e = e || window.event;
+    var target = e.target || e.srcElement;
     if(target.nodeName.toLocaleLowerCase() == 'input'){
       switch(target.id){
         case 'add' :
