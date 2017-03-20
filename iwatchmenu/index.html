@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0", user-scalable=no,minimal-ui>
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="yes" name="apple-touch-fullscreen" />
+	<meta content="telephone=no,email=no" name="format-detection" />
+    <style>
+    /*
+    reset styles for mobile devices.
+    */
+    html,
+    body,
+    div,
+    span,
+    object,
+    iframe,
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    blockquote,
+    pre,
+    abbr,
+    address,
+    cite,
+    code,
+    del,
+    dfn,
+    em,
+    img,
+    ins,
+    kbd,
+    q,
+    samp,
+    small,
+    strong,
+    sub,
+    sup,
+    var,
+    b,
+    i,
+    dl,
+    dt,
+    dd,
+    ol,
+    ul,
+    li,
+    fieldset,
+    form,
+    label,
+    legend,
+    table,
+    caption,
+    tbody,
+    tfoot,
+    thead,
+    tr,
+    th,
+    td,
+    article,
+    aside,
+    canvas,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    menu,
+    nav,
+    section,
+    summary,
+    time,
+    mark,
+    audio,
+    video {
+    margin: 0;
+    padding: 0;
+    outline: 0;
+    border: 0;
+    background: transparent;
+    vertical-align: baseline;
+    font-size: 100%;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    article,
+    aside,
+    details,
+    figcaption,
+    figure,
+    footer,
+    header,
+    menu,
+    nav,
+    section {
+    display: block;
+    }
+
+    ul {
+    list-style: none;
+    }
+
+    li {
+    list-style: none;
+    }
+
+    a {
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    vertical-align: baseline;
+    font-size: 100%;
+    }
+
+    *{padding: 0;margin: 0;}
+
+    html,
+    body {
+        position: relative;
+        font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        letter-spacing: 0.02em;
+    }
+
+    .clearfix {
+    display: block;
+    zoom: 1;
+    }
+
+    .clearfix:after {
+    content: " ";
+    display: block;
+    font-size: 0;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+    }
+
+    .menu{
+        position: relative;
+        left: 0;
+        top: 0;
+        width: 300%;
+        border: 1px solid #000;
+        overflow: auto;
+        -webkit-overflow-scrolling: touch
+    }
+    .menu li{
+        float: left;
+        width: 100px;
+        height: 100px;
+        border-radius: 50%;
+        background: orange;
+        margin: 10px;
+        transition: all ease-out .5s;
+    }
+    .center{
+        position: absolute;
+        width: 10px;
+        height: 10px;
+        left: 0;
+        top: 0;
+        background: #000;
+    }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+    <div class="center"></div>
+
+    <script>
+        window.onload = function(){
+            var clientWidth = document.documentElement.clientWidth,
+            clientHeight = document.documentElement.clientHeight,
+            canvas = document.getElementById('canvas'),
+            ctx = canvas.getContext('2d'),
+            circles = [];
+
+            canvas.width = clientWidth * 2;
+            canvas.height = clientHeight * 2;
+
+            function drawCircle(opt){
+                var circle = opt;
+                ctx.beginPath();
+                ctx.strokeStyle = "blue";
+                ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2, false);    
+                ctx.stroke();
+            }
+
+            for(var i = 0; i <= 6; i ++){
+                for(var j = 0; j <= 6; j++){
+                    drawCircle({x: clientWidth/3 + 100*i, y: clientHeight/3 + 100*j, r: 50});
+                    circles.push({
+                        x: clientWidth/3 + 100*i, 
+                        y: clientHeight/3 + 100*j,
+                        r: 50
+                    });
+                }
+            }
+
+            var throttle = function(fn, delay){
+                return function(){
+                    var _args = arguments;
+                    if(fn.tId == null){
+                    clearTimeout(fn.tId);
+                    fn.tId = setTimeout(function(){
+                        fn.apply(this, _args);
+                        fn.tId = null;
+                    }, delay);
+                    }
+                };
+            };
+
+            var center = document.getElementsByClassName('center')[0];
+            window.addEventListener('touchmove', throttle(function(e){
+                // center.style.left = window.scrollX + document.documentElement.clientWidth/2 + "px";
+                // center.style.top = window.scrollY + document.documentElement.clientHeight/2 + "px";
+                var centerX = window.scrollX + document.documentElement.clientWidth/2,
+                centerY = window.scrollY + document.documentElement.clientHeight/2;
+
+                ctx.clearRect( 0, 0, clientWidth * 2, clientHeight * 2 );
+                for(var i = 0; i <= circles.length - 1; i++){
+
+                    var xnum = Math.sqrt((centerX - circles[i].x) * (centerX - circles[i].x) + (centerY - circles[i].y) * (centerY - circles[i].y) ) / 10;
+
+                    circles[i].r = 60 - xnum;
+                    
+                    var dx = (centerX - circles[i].x) < 0 ? xnum/10 : -xnum/10;
+                    var dy = (centerY - circles[i].y) < 0 ? xnum/10 : -xnum/10;
+
+                    circles[i].r = circles[i].r < 0 ? - circles[i].r : circles[i].r;
+                    circles[i].x = circles[i].x + dx;
+                    circles[i].y = circles[i].y + dy;
+
+                    drawCircle(circles[i]);
+                }
+            }, 0), false);
+        }
+    </script>
+</body>
+</html>

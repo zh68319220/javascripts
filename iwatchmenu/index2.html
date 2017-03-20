@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0", user-scalable=no,minimal-ui>
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="yes" name="apple-touch-fullscreen" />
+	<meta content="telephone=no,email=no" name="format-detection" />
+    <style>
+    /*
+    reset styles for mobile devices.
+    */
+    html,body,div,span,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,abbr,address,cite,code,del,dfn,em,img,ins,
+    kbd,q,samp,small,strong,sub,sup,var,b,i,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,
+    tfoot,thead,tr,th,td,article,aside,canvas,details,figcaption,figure,footer,header,menu,nav,section,
+    summary,time,mark,audio,video {
+        margin: 0;
+        padding: 0;
+        outline: 0;
+        border: 0;
+        background: transparent;
+        vertical-align: baseline;
+        font-size: 100%;
+        -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    }
+
+    article,aside,details,figcaption,figure,footer,header,menu,nav,section {
+        display: block;
+    }
+
+    ul { list-style: none; }
+
+    li { list-style: none; }
+
+    a {
+        margin: 0;
+        padding: 0;
+        background: transparent;
+        vertical-align: baseline;
+        font-size: 100%;
+    }
+
+    *{padding: 0;margin: 0;}
+
+    html,
+    body {
+        position: relative;
+        font-family: "Helvetica Neue", "Calibri Light", Roboto, sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        letter-spacing: 0.02em;
+
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
+
+    .clearfix {
+        display: block;
+        zoom: 1;
+    }
+
+    .clearfix:after {
+        content: " ";
+        display: block;
+        font-size: 0;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+
+    .iwatch-view{
+        position: relative;
+        width: 100%;
+        height: 80%;
+        margin: 10% 0 0 0;
+        border-top: 1px solid #bbb;
+        border-bottom: 1px solid #bbb;
+        overflow: hidden;
+    }
+    .iwatch-container{
+        position: relative;
+        left: 0;
+        top: 0;
+        transform: translate3d(0, 0, 0);
+        -webkit-transform: translate3d(0, 0, 0);
+    }
+    .iwatch-container a{
+        position: absolute;
+        border-radius: 50%;
+        background: orange;
+        width: 150px;
+        height: 150px;
+        left: 0;
+        top: 0;
+        display: block;
+        text-align: center;
+        text-decoration: none;
+    }
+    .nav-icon{
+        background: url(./run.png) no-repeat;
+        width: 42px;
+        height: 50px;
+        position: absolute;
+        left: 54px;
+        top: 18px;
+    }
+    .iwatch-container a p{
+        position: relative;
+        top: 73px;
+        color: #fff;
+    }
+    .iwatch-container a .nav-title{ font-size: 20px; }
+    .iwatch-container a .nav-num{ font-size: 18px; }
+    </style>
+</head>
+<body>
+    <div class="iwatch-view">
+        <div class="iwatch-container"></div>
+    </div>
+
+    <script src="menu.js"></script>
+    <script>
+        window.onload = function(e){
+            var data = {
+                "data": [
+                    { "title": "跑步","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步2","num": 990099,"img_url": "run.png" },
+                    { "title": "跑步3","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步4","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步5","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步6","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步7","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步8","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步zx","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步c","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步s","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步g","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步h","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步j","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步","num": 1000000,"img_url": "run.png" },
+                    { "title": "跑步","num": 1000000,"img_url": "run.png" }
+                ]
+            }
+
+            new IwatchMenu({
+                r: 75,
+                dpos: 200,
+                row: 5,
+                col: 5,
+                colors: ['#ff2861', '#ffa72b', '#7aa1fe', '#00b594', '#d08cfb', '#00bff5', '#ffc02a'],
+                data: data
+            });
+
+        //     var clientWidth = document.documentElement.clientWidth,
+        //         clientHeight = document.documentElement.clientHeight,
+        //         view = document.getElementsByClassName('iwatch-view')[0],
+        //         container = document.getElementsByClassName('iwatch-container')[0],
+        //         centerY = clientHeight / 2,
+        //         centerX = clientWidth / 2,
+        //         items = [],
+        //         r = 75, //圆半径
+        //         dy = dx = 200, // container的偏移量
+        //         dr = Math.sqrt((clientHeight/2) * (clientHeight/2) + (clientWidth/2) * (clientWidth/2)), // 设备中心与设备边缘的最远距离
+        //         colors = ['#ff2861', '#ffa72b', '#7aa1fe', '#00b594', '#d08cfb', '#00bff5', '#ffc02a'],
+        //         row = 5,
+        //         col = 5;
+
+        //     var setWebkitStyle = function(ele, style, val){
+        //         ele.style[style] = val;
+        //         ele.style['webkit' + style] = val;
+        //     };
+
+        //     var getRandomColor = function(){
+        //         return colors[parseInt(Math.random()*6)];
+        //     };
+
+        //     var throttle = function(fn, delay){
+        //         return function(){
+        //             var _args = arguments;
+        //             if(fn.tId == null){
+        //             clearTimeout(fn.tId);
+        //             fn.tId = setTimeout(function(){
+        //                 fn.apply(this, _args);
+        //                 fn.tId = null;
+        //             }, delay);
+        //             }
+        //         };
+        //     };
+
+        //     setWebkitStyle(container, 'Transform', 'translate(0, 0)');
+        //     container.x = 0,
+        //     container.y = 0,
+        //     container.sx = 0,
+        //     container.sy = 0;
+
+        //     for(var i = 0; i <= row; i ++){
+        //         for(var j = 0; j <= col; j++){
+        //             var a = document.createElement('a');
+        //             a.href = '#';
+        //             if( i % 2 == 1 ){
+        //                 a.x = j*r*1.7;
+        //             }else{
+        //                 a.x = j*r*1.7 - r;
+        //             }
+        //             a.y = i*r*1.7;
+
+        //             var ix = a.x + r,
+        //             iy = a.y + r + clientHeight/10;
+        //             var xnum = ( dr - Math.sqrt((centerX - ix) * (centerX - ix) + (centerY - iy) * (centerY - iy)) ) / dr;
+        //             a.xnum = xnum;
+        //             setWebkitStyle(a, 'Transform', 'translate('+a.x+'px, '+a.y+'px) scale('+xnum+','+xnum+')');
+        //             a.innerHTML = '<i class="nav-icon"></i><p class="nav-title">跑步</p><p class="nav-num">1000万</p>';
+        //             a.style.background = getRandomColor();
+
+        //             container.appendChild(a);
+        //             items.push(a);
+        //         }
+        //     }
+
+        //     view.addEventListener('touchstart', function(e){
+        //         e.preventDefault();
+        //         e.stopPropagation();
+        //         var touch = e.touches[0];
+        //         view.sx = touch.clientX,
+        //         view.sy = touch.clientY;
+        //     }, false);
+
+        //     view.addEventListener('touchmove', function(e){
+        //         var touch = e.touches[0],
+        //         mx = touch.clientX - view.sx,
+        //         my = touch.clientY - view.sy;
+        //         // 容器的移动
+        //         container.x = mx + container.x;
+        //         container.y = my + container.y;
+        //         setWebkitStyle(container, 'Transform', 'translate('+container.x+'px, '+container.y+'px)');
+        //         view.sx = touch.clientX,
+        //         view.sy = touch.clientY;
+        //         // 每一项的宽高变化
+        //         for(var i = 0; i <= items.length - 1; i++){
+        //             var ix = items[i].x + container.x - container.sx + r,
+        //             iy = items[i].y + clientHeight/10 + container.y - container.sy + r;
+        //             // 距离中心越远 系数越小
+        //             var xnum = ( dr - Math.sqrt((centerX - ix) * (centerX - ix) + (centerY - iy) * (centerY - iy)) ) / dr;
+        //             setWebkitStyle(items[i], 'Transform', 'translate('+items[i].x+'px, '+items[i].y+'px) scale('+xnum+','+xnum+')');
+        //         }
+        //     }, false);
+        //     view.addEventListener('touchend', function(e){}, false);
+
+        //     container.addEventListener('touchend', function(e){
+        //         e.preventDefault();
+        //         var target = e.target.nodeName.toLowerCase() == 'p' || e.target.nodeName.toLowerCase() == 'i' ? e.target.parentNode : e.target;
+        //         if(target.nodeName.toLowerCase() == 'a'){
+        //             console.log(target);
+        //         }
+        //     }, false);
+        }
+    </script>
+</body>
+</html>
