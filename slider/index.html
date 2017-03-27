@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Slider</title>
+
+    <style>
+
+    *{ padding: 0; margin: 0; }
+    ul,li{ list-style: none; }
+
+    .slide-container{
+        position: relative;
+        width: 1344px;
+        height: 135px;
+        overflow: hidden;
+        margin: 20px auto 0 auto;
+        padding: 0 28px;
+    }
+    .slide{
+        position: relative;
+        width: 2000px;
+        height: 135px;
+        transition: all linear .5s;
+    }
+    .slide li{
+        float: left;
+        height: 135px;
+        width: 200px;
+        cursor: pointer;
+        background: #888;
+        margin-right: 29px;
+    }
+    .slide-btn{
+        position: absolute;
+        top: 0;
+        cursor: pointer;
+    }
+    .slide-btn-l{
+        left: 0;
+        background: #bbb;
+        width: 28px;
+        height: 135px;
+    }
+    .slide-btn-r{
+        right: 0;
+        background: #bbb;
+        width: 28px;
+        height: 135px;
+    }
+    </style>
+</head>
+<body>
+    <div class="slide-container">
+        <ul class="slide" style="left: 0;">
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+            <li></li>
+        </ul>
+        <div class="slide-btn slide-btn-l"></div>
+        <div class="slide-btn slide-btn-r"></div>
+    </div>
+    <script>
+        var EventListener = {
+            addEvent : function(ele, tp, fn, capture){
+                var capture = capture || false;
+                if(ele.addEventListener){
+                    ele.addEventListener(tp, fn, capture);
+                }
+                else if(ele.attachEvent){
+                    ele.attachEvent("on" + tp, fn);
+                }
+                else{
+                    ele["on" + tp] = fn;
+                }
+            },
+            removeEvent : function(ele, tp, fn, capture){
+                var capture = capture || false;
+                if(ele.removeEventListener){
+                    ele.removeEventListener(tp, fn, capture);
+                }
+                else if(ele.detachEvent){
+                    ele.detachEvent("on" + tp, fn);
+                }
+                else{
+                    ele["on" + tp] = null;
+                }
+            }
+        },
+        bl = document.getElementsByClassName('slide-btn-l')[0],
+        br = document.getElementsByClassName('slide-btn-r')[0],
+        sld = document.getElementsByClassName('slide')[0],
+        sldLi = sld.getElementsByTagName('li');
+
+        sld.style.width = sldLi.length * 229 + 'px';
+
+        EventListener.addEvent(bl, 'click', function(e){
+            e.preventDefault();
+            var left = parseInt( sld.style.left.split('px')[0] );
+            if( left !== 0 ) sld.style.left =  left + 229 + 'px';
+        }, false);
+
+        EventListener.addEvent(br, 'click', function(e){
+            e.preventDefault();
+            var left = parseInt( sld.style.left.split('px')[0] );
+            if( left >= -229 * sldLi.length/2 ) sld.style.left =  left - 229 + 'px';
+        }, false);
+    </script>
+</body>
+</html>

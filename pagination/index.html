@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Pagination</title>
+    <style>
+        *{ padding: 0;margin: 0; }
+        ul, li{ list-style: none; }
+        /* pagination */
+        .pagination{
+            width: 100%;
+            margin-top: 28px;
+        }
+        .pagination li{
+            float: left;
+            height: 30px;
+            background: #a8a8a8;
+            border-radius: 4px;
+            cursor: pointer;
+            line-height: 30px;
+            min-width: 30px;
+            text-align: center;
+            margin-right: 10px;
+        }
+        .pagination li:first-child, .pagination li:last-child{
+            min-width: 68px;
+        }
+        .pagination li.active{
+            background: #cd1d1a;
+        }
+    </style>
+</head>
+<body>
+    <ul class="pagination clearfix"></ul>
+    <script src="index.js"></script>
+    <script>
+        var data = {
+            "total": 80,
+            "page": 0,
+            "data": [0,1,2,3,4,5]
+        }
+        new _page({
+            ele: document.getElementsByClassName('pagination')[0],
+            total: data.total,
+            each: 10,
+            per: 5,
+            onPageChange: function(ind){
+                console.log(ind);
+            }
+        });
+    </script>
+</body>
+</html>
