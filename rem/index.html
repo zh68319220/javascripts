@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Rem Scale</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0", user-scalable=no,minimal-ui>
+	<meta content="yes" name="apple-mobile-web-app-capable" />
+	<meta content="yes" name="apple-touch-fullscreen" />
+	<meta content="telephone=no,email=no" name="format-detection" />
+
+    <style>
+        *{ padding: 0;margin: 0; }
+        html, body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .main{
+            position: relative;
+            left: 0;
+            top: 1rem;
+            width: 9rem;
+            height: 10rem;
+            margin: 0 auto;
+            background: #bbb;
+        }
+    </style>
+    <script type="text/javascript">
+        /*
+        adapt different mobile devices using rem.
+        */
+        (function(win) {
+            var doc = win.document,
+                docEl = doc.documentElement,
+                screenWidth =  parseInt(docEl.clientWidth),
+                psdWidth = 640,
+                tid;
+            var phoneScale = screenWidth/psdWidth;
+            var ua = navigator.userAgent;
+            if (/Android (\d+\.\d+)/.test(ua)){
+                var version = parseFloat(RegExp.$1);
+                if(version>2.3){
+                    document.write('<meta name="viewport" content="width='+psdWidth+', minimum-scale = '+phoneScale+', maximum-scale = '+phoneScale+'">');
+                }else{
+                    document.write('<meta name="viewport" content="width='+psdWidth+'">');
+                }
+            } else {
+                document.write('<meta name="viewport" content="width=device-width, user-scalable=no">');
+            };
+            function refreshRem() {
+                screenWidth =  parseInt(docEl.clientWidth);
+                if (screenWidth > psdWidth) { // 最大宽度
+                    screenWidth = psdWidth;
+                }
+                var rem = screenWidth / 10; // 将屏幕宽度分成10份， 1份为1rem
+                docEl.style.fontSize = rem + 'px';
+                win.rootFont = rem;
+            }
+            win.addEventListener('resize', function() {
+                clearTimeout(tid);
+                tid = setTimeout(refreshRem, 300);
+            }, false);
+            win.addEventListener('pageshow', function(e) {
+                if (e.persisted) {
+                    clearTimeout(tid);
+                    tid = setTimeout(refreshRem, 300);
+                }
+            }, false);
+            refreshRem();
+        })(window);
+    </script>
+</head>
+<body>
+    <div class="main"></div>
+</body>
+</html>
